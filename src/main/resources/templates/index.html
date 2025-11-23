@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>COMPARE AQUI!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .comparison-table tr:hover {
+            background-color: #e9e9e9;
+        }
+        /* Destaque para o melhor em cada linha */
+        .best {
+            font-weight: bold;
+            background-color: #d4edda; /* Verde claro */
+            color: #155724;
+        }
+        .tie {
+            font-style: italic;
+            background-color: #fff3cd; /* Amarelo claro */
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Compare Aqui: comparação de produtos com Gemini AI</h1>
+
+    <form th:action="@{/comparar}" method="get">
+        <input type="text" name="produto1"
+               placeholder="Primeiro Produto (Ex: iPhone 15 Pro Max)"
+               th:value="${produtoPesquisado1}" required>
+
+        <input type="text" name="produto2"
+               placeholder="Segundo Produto (Ex: Samsung S24 Ultra)"
+               th:value="${produtoPesquisado2}" required>
+
+        <button type="submit">Comparar Agora</button>
+    </form>
+
+    <div th:if="${erro}" class="error">
+        <p> Erro: <span th:text="${erro}"></span></p>
+        <p>Verifique se sua **API Key do Gemini** está correta e se o servidor AI está acessível.</p>
+    </div>
+
+    <div th:if="${cards}">
+        <h2>Resultado da Comparação</h2>
+        <table class="comparison-table">
+            <thead>
+            <tr>
+                <th>Recurso</th>
+                <th th:text="${produtoPesquisado1}">Produto 1</th>
+                <th th:text="${produtoPesquisado2}">Produto 2</th>
+                <th>Melhor em</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="card : ${cards}">
+                <td th:text="${card.recurso}">Nome do Recurso</td>
+
+                <td th:text="${card.valorProduto1}"
+                    th:classappend="${card.melhorEm == 'Produto 1'} ? 'best' : (${card.melhorEm == 'Empate'} ? 'tie' : '')">
+                    Valor 1
+                </td>
+
+                <td th:text="${card.valorProduto2}"
+                    th:classappend="${card.melhorEm == 'Produto 2'} ? 'best' : (${card.melhorEm == 'Empate'} ? 'tie' : '')">
+                    Valor 2
+                </td>
+
+                <td th:text="${card.melhorEm}"
+                    th:classappend="${card.melhorEm == 'Produto 1' or card.melhorEm == 'Produto 2'} ? 'best' : 'tie'">
+                    Melhor
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 20px; font-size: 0.9em; text-align: center;">
+            *Os resultados são gerados por Inteligência Artificial (Gemini) e devem ser verificados.
+        </p>
+    </div>
+
+    <div th:if="${cards == null and erro == null}" style="text-align: center; margin-top: 50px; color: #6c757d;">
+        <p>🔎 Digite o nome de dois produtos acima para iniciar a comparação.</p>
+    </div>
+</div>
+
+</body>
+</html>
