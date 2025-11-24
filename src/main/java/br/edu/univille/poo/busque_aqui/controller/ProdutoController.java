@@ -18,7 +18,7 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
-    // Mapeia a página inicial
+    // mapeia a página inicial
     @GetMapping("/")
     public String index(Model model) {
         // Inicializa as variáveis para evitar o erro EL1001E (null para boolean) no Thymeleaf
@@ -30,7 +30,7 @@ public class ProdutoController {
         return "index";
     }
 
-    // Mapeia a requisição de comparação
+    // mapeia a requisição de comparação
     @GetMapping("/comparar")
     public String compararProdutos(
             @RequestParam(name = "produto1", required = true) String produto1,
@@ -40,7 +40,7 @@ public class ProdutoController {
         model.addAttribute("produtoPesquisado1", produto1);
         model.addAttribute("produtoPesquisado2", produto2);
 
-        // Garante que 'cards' e 'erro' sejam re-inicializados
+        // garante que 'cards' e 'erro' sejam re-inicializados
         model.addAttribute("cards", null);
         model.addAttribute("erro", null);
 
@@ -53,6 +53,6 @@ public class ProdutoController {
             e.printStackTrace();
         }
 
-        return "index"; // Retorna o nome do template Thymeleaf
+        return "index";
     }
 }

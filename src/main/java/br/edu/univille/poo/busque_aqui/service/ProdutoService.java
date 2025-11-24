@@ -26,8 +26,8 @@ public class ProdutoService {
 
     public List<ComparacaoCard> comparar(String produto1, String produto2) {
 
-        // 1. DEFINE O PROMPT como uma string de formato simples (Text Block)
-        // Usamos %s para placeholders que serão preenchidos por String.format
+
+        // o prompt
         String promptTemplateString = """
             Você é um especialista em comparação de produtos. Sua tarefa é analisar e comparar os produtos %s e %s em 5 a 8 recursos chave.
 
@@ -39,30 +39,28 @@ public class ProdutoService {
             A coluna "melhorEm" deve conter um dos três valores exatos: "Produto 1", "Produto 2" ou "Empate".
             """;
 
-        // 2. FORMATA O PROMPT: Substitui os %s pelos valores reais de produto1 e produto2
+        // substitui os %s pelos valores reais de produto1 e produto2
         String prompt = String.format(promptTemplateString, produto1, produto2);
 
-        // LOG DE SISTEMA: Imprime o prompt final enviado ao Gemini
-        System.out.println("--- 🔎 PROMPT ENVIADO AO GEMINI (String.format) ---");
+        System.out.println("PROMPT ENVIADO AO GEMINI (String.format)");
         System.out.println(prompt);
-        System.out.println("-----------------------------------------------------");
 
-        // 3. Faz a chamada ao Gemini e desserializa a Entidade
-        // Injete a string 'prompt' diretamente no .user()
+
+        // faz a chamada ao Gemini e desserializa a Entidade
+        // injeta a string prompt diretamente no .user()
         List<ComparacaoCard> cards = chatClient.prompt()
                 .user(prompt)
                 .call()
                 .entity(new ParameterizedTypeReference<List<ComparacaoCard>>() {});
 
-        // 4. Salva no banco de dados (lógica de persistência)
+        // salva no banco de dados
         if (cards != null && !cards.isEmpty()) {
             try {
                 String jsonResult = objectMapper.writeValueAsString(cards);
 
-                // LOG DE SISTEMA: Imprime o JSON COMPLETO que será salvo
-                System.out.println("\n--- ✅ DADOS PRONTOS PARA SALVAR NO BANCO ---");
+                // LOG DE SISTEMA
+                System.out.println("\n DADOS PRONTOS PARA SALVAR NO BANCO");
                 System.out.println("JSON Resultante: " + jsonResult);
-                System.out.println("--------------------------------------------");
 
                 SearchLog log = new SearchLog(produto1, produto2, jsonResult);
                 searchLogRepository.save(log);
@@ -70,7 +68,7 @@ public class ProdutoService {
                 System.err.println("Erro ao serializar JSON para o log: " + e.getMessage());
             }
         } else {
-            System.out.println("\n--- ⚠️ ALERTA: NENHUM DADO RECEBIDO DO GEMINI ---");
+            System.out.println("\n--- NENHUM DADO RECEBIDO DO GEMINI ---"); // para ter certeza que deu certo
         }
 
         return cards;

@@ -35,8 +35,6 @@ public class SearchLog {
         this.jsonResult = jsonResult;
     }
 
-    // --- Getters e Setters ---
-
     public Long getId() {
         return id;
     }
@@ -44,7 +42,6 @@ public class SearchLog {
     public String getProduto1() {
         return produto1;
     }
-
     public void setProduto1(String produto1) {
         this.produto1 = produto1;
     }
@@ -52,7 +49,6 @@ public class SearchLog {
     public String getProduto2() {
         return produto2;
     }
-
     public void setProduto2(String produto2) {
         this.produto2 = produto2;
     }
@@ -60,7 +56,6 @@ public class SearchLog {
     public String getJsonResult() {
         return jsonResult;
     }
-
     public void setJsonResult(String jsonResult) {
         this.jsonResult = jsonResult;
     }

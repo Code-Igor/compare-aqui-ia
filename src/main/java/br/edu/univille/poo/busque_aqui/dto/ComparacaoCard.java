@@ -2,19 +2,19 @@ package br.edu.univille.poo.busque_aqui.dto;
 
 public class ComparacaoCard {
 
-    // O recurso ou especificação que está sendo comparado
+    // o recurso ou especificação que está sendo comparado
     private String recurso;
 
-    // O valor ou descrição do recurso para o Produto 1
+    // o valor ou descricao do recurso para o Produto 1
     private String valorProduto1;
 
-    // O valor ou descrição do recurso para o Produto 2
+    // o valor ou descricao do recurso para o Produto 2
     private String valorProduto2;
 
-    // Quem é o melhor neste recurso ("Produto 1", "Produto 2" ou "Empate")
+    // quem é o melhor neste recurso ("Produto 1", "Produto 2" ou "Empate")
     private String melhorEm;
 
-    // Construtor padrão (necessário para Jackson/Spring AI)
+    // construtor padrao
     public ComparacaoCard() {}
 
     public ComparacaoCard(String recurso, String valorProduto1, String valorProduto2, String melhorEm) {
@@ -24,7 +24,7 @@ public class ComparacaoCard {
         this.melhorEm = melhorEm;
     }
 
-    // --- Getters e Setters ---
+    // getters e setters
 
     public String getRecurso() {
         return recurso;
