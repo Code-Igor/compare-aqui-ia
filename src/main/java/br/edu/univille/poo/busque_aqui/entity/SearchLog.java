@@ -28,12 +28,6 @@ public class SearchLog {
         this.searchDate = LocalDateTime.now();
     }
 
-    public SearchLog(String produto1, String produto2, String jsonResult) {
-        this();
-        this.produto1 = produto1;
-        this.produto2 = produto2;
-        this.jsonResult = jsonResult;
-    }
 
     public Long getId() {
         return id;

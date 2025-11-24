@@ -62,13 +62,17 @@ public class ProdutoService {
                 System.out.println("\n DADOS PRONTOS PARA SALVAR NO BANCO");
                 System.out.println("JSON Resultante: " + jsonResult);
 
-                SearchLog log = new SearchLog(produto1, produto2, jsonResult);
+                SearchLog log = new SearchLog();
+                log.setProduto1(produto1);
+                log.setProduto2(produto2);
+                log.setJsonResult(jsonResult);
+
                 searchLogRepository.save(log);
             } catch (JsonProcessingException e) {
                 System.err.println("Erro ao serializar JSON para o log: " + e.getMessage());
             }
         } else {
-            System.out.println("\n--- NENHUM DADO RECEBIDO DO GEMINI ---"); // para ter certeza que deu certo
+            System.out.println("\n NENHUM DADO RECEBIDO DO GEMINI"); // para ter certeza que deu certo
         }
 
         return cards;
