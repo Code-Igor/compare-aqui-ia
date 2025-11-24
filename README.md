@@ -1,8 +1,8 @@
-# Spring Rest Gemini AI Project: Busque Aqui
+# Spring Rest Gemini AI Project: Compare Aqui
 
-"Busque Aqui" is a small project for the OOP (POO) subject, the main objective was to integrate Spring Web with the Gemini AI rest API.
+"Compare Aqui" is a small project for the OOP (POO) subject, the main objective was to integrate Spring Web with the Gemini AI rest API.
 
-The system is a smart search of products on internet using Gemini, the user just type whatever product they want and then the system returns five different cards with the best prices of that product.
+The system is basically a product comparator, the user gives to the AI 2 products, the AI returns a comparative of the 2 products.
 
 
 ## Settings
