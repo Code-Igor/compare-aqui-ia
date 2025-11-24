@@ -35,8 +35,7 @@ Você é um especialista em comparação de produtos. Sua tarefa é analisar e c
             O formato JSON esperado é:
             [{"recurso": "Nome do Recurso", "valorProduto1": "Valor do Produto 1", "valorProduto2": "Valor do Produto 2", "melhorEm": "Produto 1, Produto 2 ou Empate"}]
 
-            A coluna "melhorEm" deve conter um dos três valores exatos: "Produto 1", "Produto 2" ou "Empate".
-            
+            A coluna "melhorEm" deve conter um dos três valores exatos: "Produto 1", "Produto 2" ou "Empate".     
 ```
 
 
@@ -44,16 +43,15 @@ Você é um especialista em comparação de produtos. Sua tarefa é analisar e c
 
 Database creation
 ```SQL
--- all the history will be persisted here
+
 CREATE DATABASE compare_aqui_database;
 
--- the search log
-CREATE TABLE SEARCH_LOG (
-    id_search SERIAL PRIMARY KEY,
-    user_query TEXT NOT NULL,
-    json_result TEXT NOT NULL,
-    search_time TIMESTAMP WITHOUT TIME ZONE
-);
-
+-- persistindo os dados nessa tabela, cada comparação/pesquisa vai ficar guardada nessa tabela
+CREATE TABLE search_log (
+    id BIGSERIAL PRIMARY KEY,
+    produto1 VARCHAR(255) NOT NULL,
+    produto2 VARCHAR(255) NOT NULL,
+    json_result TEXT, 
+    search_date TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
