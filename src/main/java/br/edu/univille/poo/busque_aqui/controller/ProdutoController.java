@@ -1,6 +1,7 @@
 package br.edu.univille.poo.busque_aqui.controller;
 
 import br.edu.univille.poo.busque_aqui.dto.ComparacaoCard;
+import br.edu.univille.poo.busque_aqui.entity.SearchLog;
 import br.edu.univille.poo.busque_aqui.service.ProdutoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,5 +55,26 @@ public class ProdutoController {
         }
 
         return "index";
+    }
+
+
+    @GetMapping("/historico")
+    public String mostrarHistorico(Model model) {
+        try {
+            //chama o serviço para buscar todos os logs
+            List<SearchLog> logs = produtoService.buscarHistorico();
+
+            // adiciona a lista de logs ao modelo sob o nome 'historicoLogs'
+            model.addAttribute("historicoLogs", logs);
+
+            // somente para verificar
+            System.out.println("Histórico carregado: " + logs.size() + " itens.");
+
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro ao carregar o histórico: " + e.getMessage());
+            model.addAttribute("historicoLogs", List.of()); // Garante que a lista não é nula
+            e.printStackTrace();
+        }
+        return "historico";
     }
 }

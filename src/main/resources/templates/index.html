@@ -19,7 +19,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #007bff;
+
             text-align: center;
             margin-bottom: 20px;
         }
@@ -65,7 +65,7 @@
             text-align: left;
         }
         .comparison-table th {
-            background-color: #007bff;
+            background-color: #9da2a3;
             color: white;
             text-transform: uppercase;
         }
@@ -75,7 +75,7 @@
         .comparison-table tr:hover {
             background-color: #e9e9e9;
         }
-        /* Destaque para o melhor em cada linha */
+
         .best {
             font-weight: bold;
             background-color: #d4edda; /* Verde claro */
@@ -93,6 +93,7 @@
 <div class="container">
     <h1>Compare Aqui: comparação de produtos com Gemini AI</h1>
 
+
     <form th:action="@{/comparar}" method="get">
         <input type="text" name="produto1"
                placeholder="Primeiro Produto (Ex: iPhone 15 Pro Max)"
@@ -103,11 +104,12 @@
                th:value="${produtoPesquisado2}" required>
 
         <button type="submit">Comparar Agora</button>
+        <button onclick="window.location.href='/historico'" type="submit">Ver Histórico de Comparações</button>
     </form>
 
     <div th:if="${erro}" class="error">
         <p> Erro: <span th:text="${erro}"></span></p>
-        <p>Verifique se sua **API Key do Gemini** está correta e se o servidor AI está acessível.</p>
+        <p>Verifique se sua API Key do Gemini está correta e se o servidor AI está acessível.</p>
     </div>
 
     <div th:if="${cards}">

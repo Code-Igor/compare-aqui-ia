@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Comparações</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .container { max-width: 1000px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4">Histórico de Comparações</h1>
+
+    <a href="/" class="btn btn-secondary mb-4">Voltar para Comparação</a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Data</th>
+            <th>Produto 1</th>
+            <th>Produto 2</th>
+            <th>Detalhes (JSON)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="log : ${historicoLogs}">
+            <td th:text="${#temporals.format(log.getSearchDate(), 'dd-MM-yyyy HH:mm:ss')}">01-01-2025 10:00:00</td>
+            <td th:text="${log.getProduto1()}">Produto A</td>
+            <td th:text="${log.getProduto2()}">Produto B</td>
+            <td>
+                <pre style="max-height: 200px; overflow-y: scroll; font-size: 0.8em;" th:text="${log.getJsonResult()}"></pre>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(historicoLogs)}">
+            <td colspan="4" class="text-center">Nenhuma pesquisa encontrada no histórico.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

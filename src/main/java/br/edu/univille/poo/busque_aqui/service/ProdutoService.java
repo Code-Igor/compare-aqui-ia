@@ -77,4 +77,10 @@ public class ProdutoService {
 
         return cards;
     }
+
+    //return uma lista de objetos SearchLog
+    public List<SearchLog> buscarHistorico() {
+        // busca todos os logs
+        return searchLogRepository.findAll();
+    }
 }
