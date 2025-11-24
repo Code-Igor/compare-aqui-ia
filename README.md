@@ -45,7 +45,7 @@ Você é um especialista em comparação de produtos. Sua tarefa é analisar e c
 Database creation
 ```SQL
 -- all the history will be persisted here
-CREATE DATABASE busque_aqui_database;
+CREATE DATABASE compare_aqui_database;
 
 -- the search log
 CREATE TABLE SEARCH_LOG (
@@ -55,14 +55,5 @@ CREATE TABLE SEARCH_LOG (
     search_time TIMESTAMP WITHOUT TIME ZONE
 );
 
--- for each search log it will have five results
-CREATE TABLE RESULT_LOG (
-    id_result SERIAL PRIMARY KEY,
-    id_search INT NOT NULL,
-    store_name TEXT NOT NULL,
-    price NUMERIC NOT NULL,
-    link TEXT NOT null,
-    
-    CONSTRAINT fk_search FOREIGN KEY (id_search) REFERENCES SEARCH_LOG (id_search)
 );
 ```
